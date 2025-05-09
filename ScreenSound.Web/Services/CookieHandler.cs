@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 namespace ScreenSound.Web.Services
 {
