@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -25,6 +26,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddTransient<DAL<Artista>>();
 builder.Services.AddTransient<DAL<Musica>>();
 builder.Services.AddTransient<DAL<Genero>>();
+builder.Services.AddTransient<DAL<PessoaComAcesso>>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -55,6 +57,12 @@ app.AddEndPointsMusicas();
 app.AddEndPointGeneros();
 
 app.MapGroup("auth").MapIdentityApi<PessoaComAcesso>().WithTags("Autorização");
+
+app.MapPost("auth/logout", async ([FromServices] SignInManager<PessoaComAcesso> signInManager) => 
+{
+    await signInManager.SignOutAsync();
+    return Results.Ok();
+});
 
 app.UseSwagger();
 app.UseSwaggerUI();
