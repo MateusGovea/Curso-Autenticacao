@@ -36,4 +36,14 @@ public class ArtistaAPI
     {        
        await _httpClient.PutAsJsonAsync($"artistas", artista);
     }
+
+    public async Task<AvaliacaoArtistaResponse?> GetAvaliacaoPessoaLogadaAsync(int artistaId)
+    {
+        return await _httpClient.GetFromJsonAsync<AvaliacaoArtistaResponse?>($"{artistaId}/avaliacao");
+    }
+
+    public async Task AvaliaArtistaAsync(int artistaId, double nota)
+    {
+        await _httpClient.PostAsJsonAsync("artistas/avaliacao", new { artistaId, nota });
+    }
 }
